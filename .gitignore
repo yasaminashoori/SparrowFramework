@@ -1,0 +1,63 @@
+# ---- Build results ----
+bin/
+obj/
+out/
+[Bb]uild/
+[Ll]og/
+[Ll]ogs/
+
+# ---- Visual Studio ----
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ---- Visual Studio Code ----
+.vscode/
+.history/
+
+# ---- Rider / JetBrains ----
+.idea/
+*.sln.iml
+
+# ---- DotNet ----
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/Properties/launchSettings.json
+
+# ---- NuGet ----
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+*.nuspec
+
+# ---- Resharper ----
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# ---- Other tools ----
+*.cache
+*.bak
+*.log
+*.tlog
+*.pdb
+
+# ---- OS files ----
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+desktop.ini
+
+# ---- Test results ----
+[Tt]est[Rr]esult*/
+[Tt]est[Rr]esults/
+*.coverage
+*.coveragexml
+
+# ---- Publish ----
+publish/
+*.PublishSettings
