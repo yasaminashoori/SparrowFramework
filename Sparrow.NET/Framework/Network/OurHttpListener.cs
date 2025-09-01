@@ -6,7 +6,6 @@ using System.Threading.Channels;
 
 namespace Sparrow.NET.Framework.Network
 {
-    // نام‌ها مطابق اسکرین‌شات‌ها
     public sealed class OurHttpListener
     {
         private readonly IList<string> _prefixes = new List<string>();
@@ -55,7 +54,7 @@ namespace Sparrow.NET.Framework.Network
             if (_tcp == null) return;
 
             _cts?.Cancel();
-            try { _tcp.Stop(); } catch { /* ignore */ }
+            try { _tcp.Stop(); } catch { }
 
             if (_acceptLoop != null)
             {
@@ -96,8 +95,6 @@ namespace Sparrow.NET.Framework.Network
             {
                 stream.ReadTimeout = 5000;
                 stream.WriteTimeout = 5000;
-
-                // خط اول: "GET /path HTTP/1.1"
                 var requestLine = await reader.ReadLineAsync().ConfigureAwait(false);
                 if (string.IsNullOrWhiteSpace(requestLine))
                     return;
@@ -106,8 +103,6 @@ namespace Sparrow.NET.Framework.Network
                 var method = parts.Length > 0 ? parts[0] : "GET";
                 var path = parts.Length > 1 ? parts[1] : "/";
                 var protocol = parts.Length > 2 ? parts[2] : "HTTP/1.1";
-
-                // هدرها را بخوان
                 var headers = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
                 string? line;
                 while (!string.IsNullOrEmpty(line = await reader.ReadLineAsync().ConfigureAwait(false)))
@@ -118,8 +113,6 @@ namespace Sparrow.NET.Framework.Network
                     var value = line[(idx + 1)..].Trim();
                     headers[name] = value;
                 }
-
-                // بدنه (اختیاری)
                 byte[]? bodyBytes = null;
                 if (headers.TryGetValue("Content-Length", out var lenStr) &&
                     int.TryParse(lenStr, out var len) && len > 0)
@@ -143,21 +136,9 @@ namespace Sparrow.NET.Framework.Network
 
                 var response = new OurHttpListenerResponse(stream);
                 var ctx = new OurHttpListenerContext(request, response);
-
-                // نوشتن در کانال برای Program
-                // توجه: اینجا به Channel دسترسی نداریم؛ روش صحیح: رویداد یا Channel در کلاس listener.
-                // برای ساده‌سازی مطابق عکس‌ها، Context را روی خود Response نگه نمی‌داریم.
-                // این متد در کلاس Listener نیست؛ پس آن را به Program نمی‌فرستد.
-                // => تغییر: این هندلر را به یک متد داخلی Listener منتقل کردیم (بالا)،
-                // و در آنجا بعد از ساخت ctx می‌نویسیم به Channel:
-                // await _poolRequest.Writer.WriteAsync(ctx);
-                // چون اینجا static است، برنمی‌گردانیم.
             }
         }
     }
-
-    // ==================== Models مطابق اسکرین‌شات‌ها ====================
-
     public sealed class OurHttpListenerContext
     {
         public OurHttpListenerRequest Request { get; }

@@ -1,10 +1,9 @@
-﻿using Sparrow.NET.Framework.Network; // <- فریمورک خودت
+﻿using Sparrow.NET.Framework.Network;
 
 public class Program
 {
     public static async Task Main()
     {
-        // Start HTTP listener
         var ourServer = new OurHttpListener();
         ourServer.AddPrefix("http://localhost:11231/");
         ourServer.Start();
@@ -18,16 +17,12 @@ public class Program
                 var context = await ourServer.GetNewRequestAsync();
 
                 Console.WriteLine($"Received request: {context.Request.HttpMethod} {context.Request.Path}");
-
-                // نمونه: 200 یا 404 — طبق نیاز خودت تغییر بده
                 context.Response.StatusCode = 200;
-
-                // نمونه JSON (طبق عکس‌ها: Write و WriteJson روی Response)
                 context.Response.WriteJson(new
                 {
                     Name = "thisisnabi",
                     Version = "1.0.0",
-                    Description = "This is a sample response from OurFramework.NET",
+                    Description = "Sample response",
                     Timestamp = DateTime.UtcNow
                 });
 
@@ -35,12 +30,12 @@ public class Program
             }
             catch (ObjectDisposedException)
             {
-                break; // Listener stopped
+                break;
             }
         }
     }
 
-    // طبق اسکرین‌شات‌ها: این دو helper هم اگر بخواهی از بیرون صدا بزنی وجود دارند.
+    // TODO
     static Task WriteTextAsync(OurHttpListenerResponse res, string text)
     {
         res.Write(text);
