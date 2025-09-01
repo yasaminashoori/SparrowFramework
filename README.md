@@ -18,6 +18,11 @@
 
 ---
 
+## 💝 Acknowledgments
+
+- Inspired by **ASP.NET Core Course By Nabi Karampour** [Github Link](https://github.com/thisisnabi)
+- Built with ❤️ for the .NET community  
+
 ## 🌟 Features
 
 - **🔧 Lightweight** - No external dependencies, pure .NET  
