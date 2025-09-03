@@ -8,7 +8,7 @@
 
 [![.NET](https://img.shields.io/badge/.NET-8.0+-512BD4?style=for-the-badge&logo=dotnet)](https://dotnet.microsoft.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/yourusername/sparrow?style=for-the-badge&color=yellow)](https://github.com/yourusername/sparrow/stargazers)
+[![Stars](https://img.shields.io/github/stars/yourusername/sparrow?style=for-the-badge&color=yellow)](https://github.com/yasaminashoori/sparrow/stargazers)
 
 *small, fast, and efficient* ✨
 
